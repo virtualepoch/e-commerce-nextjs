@@ -1,12 +1,53 @@
+import ProductCard from "@/components/ProductCard";
+import prisma from "@/lib/db/prisma";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const products = await prisma.product.findMany({
+    orderBy: { id: "desc" },
+  });
   return (
     <>
-     <h1 className="mx-auto my-4 mb-96 px-4 text-2xl font-bold border-4">Home</h1>
+      <h1 className="page-header">Home</h1>
 
-     <Link href={"/add-product"} className="p-4 py-2 border-b-2 border-b-teal-300 text-slate-700">Add Product</Link>    
+      <Link
+        href={"/add-product"}
+        className="fixed top-20 left-0 p-4 py-2 border-b-2 border-b-teal-300 text-slate-700"
+      >
+        Add Product
+      </Link>
+
+      <div className="hero rounded-xl bg-base-200">
+        <div className="hero-content flex-col lg:flex-row">
+          <Image
+            src={products[0].imageUrl}
+            alt={products[0].name}
+            width={400}
+            height={400}
+            className="w-full max-w-sm rounded-lg shadow-2xl"
+            priority
+          />
+          <div>
+            <h1 className="text-5xl font-bold">{products[0].name}</h1>
+
+            <p className="py-6">{products[0].description}</p>
+
+            <Link
+              href={"/products/" + products[0].id}
+              className="btn btn-primary"
+            >
+              View Product Details
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {products.slice(1).map((product) => (
+          <ProductCard product={product} key={product.id} />
+        ))}
+      </div>
     </>
   );
 }
