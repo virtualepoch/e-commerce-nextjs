@@ -23,7 +23,7 @@ export default async function Navbar() {
   return (
     <div className="fixed top-0 w-full z-50">
       <div className="navbar max-w-7xl m-auto flex-col sm:flex-row gap-2">
-        <div className="flex-1 drop-shadow-2xl border border-red-500">
+        <div className="flex-1 drop-shadow-2xl">
           <Link href="/" className="btn btn-ghost text-2xl">
             <Image src={logo} width={40} height={40} alt="Agitite Logo" />
             Agitite

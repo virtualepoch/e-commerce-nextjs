@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} box-border m-0 p-0 border-2 border-cyan-400`}>
+      <body className={`${inter.className} box-border m-0 p-0`}>
         <SessionProvider>
           <Navbar />
 
